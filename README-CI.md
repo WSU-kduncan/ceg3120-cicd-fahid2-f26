@@ -54,3 +54,27 @@ Accessing the web pages:
 - http://localhost:8090/
 - http://localhost:8090/about.html
 
+
+## Part 2 - GitHub Actions
+
+### Secrets
+
+Two secrets were created in my Git repository. The process was done by going to Settings > Secrets and Variables. Also, the token which I generated is not pushed into my github repository according to the project guidelines due to security reasons. However, the token was utilized in the github Actions so the workflow logs in to Dockerhub and automates the workflow accordingly.
+
+- `DOCKER_USERNAME` contains my DockerHub username.
+- `DOCKER_TOKEN` contains my DockerHub PAT
+
+
+### GitHub Actions Workflow
+
+I created a workflow file named `docker-ci.yml` inside `.github/workflows/`. One issue I faced while pushing the `.github/workflows/`  was it was not authorized to be pushed. Therefore, I changed my permissions on github that included workflow as well. 
+The workflow runs when I push a commit to the `main` branch.
+
+The workflow contains four stages:
+
+1. Checkout code - Gets the repository files.
+2. Login - Logs in to DockerHub using GitHub Secrets in Actions.
+3. Docker Buildx setup - Sets up Docker for creating the image.
+4. Build and push - Builds the image using my Dockerfile and pushes it to DockerHub as `rababaf/cicd:latest`.
+
+
