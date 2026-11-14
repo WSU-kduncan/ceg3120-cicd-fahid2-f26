@@ -116,3 +116,87 @@ I opened `http://localhost:8091/` in my browser and confirmed that the updated h
 ![Updated homepage](images/updated-homepage.png)
 
 DockerHub repository: [rababaf/cicd](https://hub.docker.com/r/rababaf/cicd)
+
+
+
+## Part 3 - Semantic Versioning
+
+### Creating Git Tags
+
+According to project guidelines,for Part 3, I used Git tags to create two different versions of my site.
+
+To see tags: 
+
+```bash
+
+git tag -l```
+
+Frst version tag:
+
+```bash
+git tag -a v1.0.0 ```
+
+To push the tag:
+
+```bash
+git push origin v1.0.0
+```
+
+### Semantic Versioning with GitHub Actions
+
+The following was changed in the yaml file:
+
+```yaml
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+```
+
+I changed `branches` to `tags` so it refers to the versioning whenever we push with a new version. Therefore, we used the global wildcard `'v*.*.*'` to grab the Semver tag. Regular push to `main` would not trigger any workflow. Only, the image is built when I tag a version commit. 
+
+I also added `docker/metadata-action` to generate Docker image tags based on the Git version.
+
+The workflow uses the following:
+
+1. Checkout- Gets the repo files with the web-content for build.
+2. Login - Authenticates to DockerHub using the GitHub repository secrets under Settings > Secrets & Variables that contains the `DOCKER_USERNAME` AND `DOCKER_TOKEN`
+3. Docker metadata - Generates Docker image tags based on the image tags
+4. Docker Buildx - Sets up Docker for building images.
+5. Build and push - Builds the image and pushes tags to DockerHub into rababaf/cicd.
+
+The metadata action generates three image tags:
+
+- `latest`
+- Major version
+- Major and minor version, such as `1.0` or `1.1`
+
+Workflow file: [docker-ci.yml](https://github.com/WSU-kduncan/ceg3120-cicd-fahid2-f26/blob/main/.github/workflows/docker-ci.yml)
+
+### Testing and Validation
+
+Two Git releases were created using `v1.0.0` and `v1.1.0`.
+
+After pushing each tag, I checked GitHub Actions to verify that the workflow completed successfully. I also checked DockerHub and verified that the image tags were published successfully.
+
+DockerHub repository: [rababaf/cicd](https://hub.docker.com/r/rababaf/cicd/tags)
+
+I also pulled both versions from DockerHub:
+
+```bash
+docker pull rababaf/cicd:1.0
+docker pull rababaf/cicd:1.1
+```
+I ran them separately:
+
+```bash
+docker run -d --name fahid-v1 -p 8092:80 rababaf/cicd:1.0
+docker run -d --name fahid-v1-1 -p 8093:80 rababaf/cicd:1.1
+```
+I opened both versions in my browser to compare them.
+
+![Original website](<images/initial version.png>)
+
+![Updated website](images/version1.1.png)
+
+This proves that I could still run the older version even after releasing a newer one that verifies my testing and proof for the project.
