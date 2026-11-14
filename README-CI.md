@@ -78,3 +78,41 @@ The workflow contains four stages:
 4. Build and push - Builds the image using my Dockerfile and pushes it to DockerHub as `rababaf/cicd:latest`.
 
 
+### Testing GitHub Actions
+
+According to the instructions, I intially tested my workflow by pushing the file to the main branch and the workflow ran without issues. 
+![GitHub Actions workflow](images/githubactions.png)
+
+### Testing Test branch 
+
+Moving forward I  created a separate branch called `test-branch` and committed a file named `branchtest.txt`.
+
+I pushed this branch to GitHub to verify that the workflow would not run.The following screenshot shows my test commit on the separate branch and eventually it did not trigger any workflow action on my main branch.
+
+![Test branch](images/test.png)
+
+![No workflow](images/noworkflow.png)
+
+### Testing Website Changes
+
+GitHub Actions automatically ran and built and pushed the updated Docker image to DockerHub for the changes I made to my `index.html` file.
+
+![Workflow updated](images/workflow testing.png)
+
+I pulled the updated Docker image using:
+
+```bash
+docker pull rababaf/cicd:latest
+```
+
+Then I ran the updated image using:
+
+```bash
+docker run -d --name fahid-updated -p 8091:80 rababaf/cicd:latest
+```
+
+I opened `http://localhost:8091/` in my browser and confirmed that the updated homepage text appeared with the updated CSS.
+
+![Updated homepage](images/updated-homepage.png)
+
+DockerHub repository: [rababaf/cicd](https://hub.docker.com/r/rababaf/cicd)
