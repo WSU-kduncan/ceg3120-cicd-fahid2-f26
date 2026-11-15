@@ -200,3 +200,20 @@ I opened both versions in my browser to compare them.
 ![Updated website](images/version1.1.png)
 
 This proves that I could still run the older version even after releasing a newer one that verifies my testing and proof for the project.
+
+
+
+## CI Project Goal
+
+The primary goal of this project was to ensure the automatic build and push of Docker images using the Github Actions instead of having manually logging in, creating changes and running a bunch of commands over and over again that consumes time. I reused my HTMl and CSS style websites from my previous project 5 and used Docker with Apache web server built in the image to host my site and form a CI through Github Actions.
+
+The Tools used are as follows:
+- Git and GitHub - Storing and changing code, tracking commits and tagging different versions.
+- Docker - Build images and run the website containers.
+- DockerHub - Store the respective docker images and also contains our different version tags depending on change.
+- GitHub Actions - Automatically build and push images when a new version tag is commited.
+
+My workflow ran when I pushed a git tag such as `v1.0.0` and accordingly GitHub Actions built the Docker image and published the respective tags to DockerHub without having me to manually do ut nyself. I tested two different versions of my website with a slight html change and verified that I could run the older version as well even well after publishing the newer version..
+
+### CI Diagram
+
