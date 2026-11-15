@@ -217,3 +217,6 @@ My workflow ran when I pushed a git tag such as `v1.0.0` and accordingly GitHub 
 
 ### CI Diagram
 
+The following diagram shows how the local Git repository, GitHub, GitHub Actions, and DockerHub as part of diagram for workflow.
+
+![Project 6 CI Diagram](images/Project6-CI-Diagram.drawio.png)
