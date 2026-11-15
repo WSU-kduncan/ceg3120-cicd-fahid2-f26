@@ -220,3 +220,18 @@ My workflow ran when I pushed a git tag such as `v1.0.0` and accordingly GitHub 
 The following diagram shows how the local Git repository, GitHub, GitHub Actions, and DockerHub as part of diagram for workflow.
 
 ![Project 6 CI Diagram](images/Project6-CI-Diagram.drawio.png)
+
+
+### Citations/References 
+
+  https://docs.github.com/en/actions/get-started/quickstart
+
+  https://semver.org/
+
+  https://github.com/docker/metadata-action#semver
+
+  https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
+  https://www.youtube.com/watch?v=k1GOQAcpPNg&t=98s
+
+
+
